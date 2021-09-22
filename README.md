@@ -45,29 +45,28 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
-
+### Publish MQTT to subscribe with NestJs
 ```bash
-# unit tests
-$ npm run test
+# MQTT broker
+$ mosquitto -v 
 
-# e2e tests
-$ npm run test:e2e
+# publish MQTT messages
+$ publish: mosquitto_pub -h localhost -t demo -m "12345" 
 
-# test coverage
-$ npm run test:cov
+# or execute mqtt-pub-ts.sh to publish a timestamp every 5 sec
+$ sh mqtt-pub-ts.sh
 ```
 
-## Support
+### Docker
+```bash
+$ docker build -t mqtt-metrics-demo . 
+$ docker run --network host -p 3005:3005 -e MQTT_BROKER=mqtt://localhost:1883 mqtt-metrics-demo 
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
+## Endpoint
+```bash
+http://localhost:3005/metrics
+```
 ## License
 
 Nest is [MIT licensed](LICENSE).
